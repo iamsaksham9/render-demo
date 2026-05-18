@@ -40,7 +40,7 @@ function loadApiKey() {
 const JUSPAY_API_KEY = loadApiKey();
 const JUSPAY_MERCHANT_ID = process.env.JUSPAY_MERCHANT_ID || 'testamit333';
 const JUSPAY_CLIENT_ID = process.env.JUSPAY_CLIENT_ID || 'testamit333';
-const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || `http://localhost:${process.env.PORT || 3000}`).replace(/\/$/, '');
 
 // Build Basic auth header: base64("apiKey:")
 function authHeader(apiKey) {
@@ -151,7 +151,6 @@ app.post('/api/create-session', async (req, res) => {
       customer_email,
       customer_phone,
       billing_address_country_code_iso: country_code,
-      gateway_id: '1208',
       action: 'paymentPage',
       currency,
       description,
